@@ -37,8 +37,8 @@ export default {
         return {
         labelPosition: 'left',
         formLabelAlign: {
-          name: 'admin',
-          pwd: '123456',
+          name: '',
+          pwd: '',
          
         },
         rules:{

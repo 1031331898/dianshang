@@ -71,8 +71,8 @@ export default {
   },
   created () {
      this.axios.get('/api/menus').then(res=>{
-      console.log(res.data.data)
-      this.list = res.data.data
+      console.log(res)
+      this.list = res.data
     })
     }
   } 
