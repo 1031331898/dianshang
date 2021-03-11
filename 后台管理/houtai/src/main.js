@@ -9,7 +9,11 @@ Vue.use(ElementUI);
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-// 添加请求拦截器
+
+//echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+    // 添加请求拦截器
 axios.interceptors.request.use(function(config) {
     // 在发送请求之前做些什么
     let token = sessionStorage.getItem('token')
