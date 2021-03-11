@@ -37,8 +37,8 @@ export default {
         return {
         labelPosition: 'left',
         formLabelAlign: {
-          name: '',
-          pwd: '',
+          name: 'admin',
+          pwd: '123456',
          
         },
         rules:{
@@ -52,8 +52,8 @@ export default {
     },
     methods: {
   onSubmit(formName) {
-       this.$refs[formName].validate((valid)=>{
-         if(valid){
+      this.$refs[formName].validate((valid)=>{
+        if(valid){
           this.axios.post('/api/login',{
                   username:this.formLabelAlign.name,
                   password:this.formLabelAlign.pwd
@@ -64,7 +64,6 @@ export default {
               type:"success",
               duration:1000,
               onClose:()=>{
-
                 window.sessionStorage.setItem("token",res.data.token);
                 this.$router.push('/Home');
               }

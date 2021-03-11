@@ -2,7 +2,7 @@
   <div>
     <div class="users_top">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: 'sy' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户管理</el-breadcrumb-item>
         <el-breadcrumb-item>用户列表</el-breadcrumb-item>
       </el-breadcrumb>
@@ -119,13 +119,11 @@ export default {
     },
   },
   mounted() {
-    this.axios
-      .get("/api/users", {
+    this.axios.get("/api/users", {
         params: this.queryInfo,
       })
       .then((res) => {
         console.log(res);
-
         if (res.data.meta.status !== 200) {
           return this.$message.error("查询用户列表失败！");
         }

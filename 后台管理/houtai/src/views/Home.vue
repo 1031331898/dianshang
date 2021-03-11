@@ -51,16 +51,17 @@
 </template>
 
 <script>
+// import Request from '../request/index.js'
 export default {
   data(){
     return{
-      list:''
+      list:null
     }
   },
   methods: {
     logout(){
       window.sessionStorage.clear();
-     this.$router.push('/login')
+      this.$router.push('/login')
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -70,7 +71,7 @@ export default {
     },
   },
   created () {
-     this.axios.get('/api/menus').then(res=>{
+    this.axios.get('/api/menus').then(res=>{
       console.log(res)
       this.list = res.data
     })
