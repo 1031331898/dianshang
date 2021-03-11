@@ -13,7 +13,6 @@ import VueAxios from 'vue-axios'
 axios.interceptors.request.use(function(config) {
     // 在发送请求之前做些什么
     let token = sessionStorage.getItem('token')
-    console.log(token)
     if (token) {
         config.headers.Authorization = token
     }
@@ -38,6 +37,12 @@ axios.interceptors.response.use(function(response) {
     return Promise.reject(error);
 });
 
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login') return next()
+    const tokenStr = window.sessionStorage.getItem('token')
+    if (!tokenStr) return next('/login')
+    next()
+})
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false

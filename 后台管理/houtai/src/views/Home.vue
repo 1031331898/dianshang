@@ -3,7 +3,7 @@
     <div class="home_top">
       <div class="box1">
         <span>电商后台管理系统</span>
-       
+      
       </div>
       <div class="box2">
         <button @click="logout" type="info">退出</button>
@@ -15,7 +15,6 @@
           <img src="../assets/图层1@2x.png" alt="">
         </div>
         <el-menu 
-          
           default-active="2"
           class="el-menu-vertical-demo"
           @open="handleOpen"
@@ -61,7 +60,7 @@ export default {
   methods: {
     logout(){
       window.sessionStorage.clear();
-      this.$router.push('/login')
+      // this.$router.push('/login')
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
