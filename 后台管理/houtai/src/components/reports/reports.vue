@@ -2,8 +2,8 @@
     <div>
   <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/sy' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户列表</el-breadcrumb-item>
+        <el-breadcrumb-item>数据统计</el-breadcrumb-item>
+        <el-breadcrumb-item>数据报表</el-breadcrumb-item>
       </el-breadcrumb>
       <el-card>
 <div id="main" style="width:800px;height:400px "></div>
@@ -91,5 +91,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-
+.el-breadcrumb {
+  padding: 10px;
+}
 </style>

@@ -8,7 +8,10 @@ Vue.use(ElementUI);
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+//vue-table-with-tree-grid 树形结构
+import ZkTable from 'vue-table-with-tree-grid'
 
+Vue.use(ZkTable)
 
 //echarts
 import echarts from 'echarts'

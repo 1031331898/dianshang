@@ -118,7 +118,7 @@ body {
   display: flex;
   justify-content: space-between;
   .home_left {
-    height: 100%;
+    height: 127%;
     background: #333744;
     width: 200px;
    

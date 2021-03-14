@@ -10,9 +10,6 @@ const routes = [
         path: '/home',
         name: 'Home',
         component: Home,
-<<<<<<< HEAD
-        children: [{
-=======
         children: [
             { path: '/', redirect: "sy" },
             {
@@ -21,7 +18,6 @@ const routes = [
                     import ('./../components/sy/sy.vue')
             },
             {
->>>>>>> 4bb7b945ae739f0089be0a1a92b41d03bb299b1f
                 path: 'users',
                 component: () =>
                     import ('./../components/users/users.vue')
@@ -52,10 +48,16 @@ const routes = [
                     import ('./../components/goods/goods.vue')
             },
             {
+                path: 'add',
+                component: () =>
+                    import ('./../components/goods/add.vue')
+            },
+            {
                 path: 'categories',
                 component: () =>
                     import ('./../components/goods/categories.vue')
             },
+
             {
                 path: 'params',
                 component: () =>
