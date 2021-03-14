@@ -25,20 +25,14 @@
             :unique-opened=true
         >
           <el-submenu :index="item.id+'-1'+''" v-for="item in list" :key="item.id">
-            
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{item.authName}}</span>
             </template>
             <el-menu-item-group>
               <router-link :to="'/home/'+ite.path" :index="ite.id+'-6'+''"  v-for="ite in item.children" :key="ite.id" tag="el-menu-item">{{ite.authName}}</router-link>
-              
             </el-menu-item-group>
-            
-
           </el-submenu>
-
-         
         </el-menu>
       </div>
 
@@ -54,7 +48,14 @@
 export default {
   data(){
     return{
-      list:null
+      list:null,
+      icon_list:[
+        "el-icon-user",
+        "el-icon-location",
+        "el-icon-document",
+        "el-icon-goods",
+        "el-icon-data-line"
+      ]
     }
   },
   methods: {
@@ -87,6 +88,8 @@ html,
 body {
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .home_top {
@@ -114,14 +117,13 @@ body {
 }
 .home_center {
   width: 100%;
-  height: 600px;
+  height: 100vh;
   display: flex;
   justify-content: space-between;
   .home_left {
     height: 127%;
     background: #333744;
     width: 200px;
-   
   }
   .home_right {
     flex: 1;

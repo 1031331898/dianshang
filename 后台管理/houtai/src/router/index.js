@@ -10,6 +10,7 @@ const routes = [
         path: '/home',
         name: 'Home',
         component: Home,
+<<<<<<< HEAD
         children: [
             { path: '/', redirect: "sy" },
             {
@@ -18,6 +19,9 @@ const routes = [
                     import ('./../components/sy/sy.vue')
             },
             {
+=======
+        children: [{
+>>>>>>> efa35eebd1e8222ee9ecf0907eeb7a3cf114112a
                 path: 'users',
                 component: () =>
                     import ('./../components/users/users.vue')
