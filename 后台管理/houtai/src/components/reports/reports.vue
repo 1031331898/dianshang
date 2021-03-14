@@ -13,7 +13,7 @@
 
 <script>
 import echarts from 'echarts'
-import _ from "lodash"
+import _ from "lodash" //深拷贝
 export default {
   data(){
     return{

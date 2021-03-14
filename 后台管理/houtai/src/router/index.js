@@ -10,18 +10,7 @@ const routes = [
         path: '/home',
         name: 'Home',
         component: Home,
-<<<<<<< HEAD
         children: [{
-=======
-        children: [
-            { path: '/', redirect: "sy" },
-            {
-                path: 'sy',
-                component: () =>
-                    import ('./../components/sy/sy.vue')
-            },
-            {
->>>>>>> 4bb7b945ae739f0089be0a1a92b41d03bb299b1f
                 path: 'users',
                 component: () =>
                     import ('./../components/users/users.vue')

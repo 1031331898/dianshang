@@ -40,9 +40,8 @@
           <el-form-item label="手机" prop="phone">
             <el-input v-model="sizeForm.phone"></el-input>
           </el-form-item>
-
           <el-form-item size="large">
-            <el-button type="primary" @click="onSubmit">确定</el-button>
+            <el-button type="primary" @click="onSubmit('form')" >确定</el-button>
             <el-button @click="close">取消</el-button>
           </el-form-item>
         </el-form>
@@ -124,6 +123,41 @@
         </el-form-item>
       </el-form>
     </div>
+  <div class="newjob" v-if="isNew">
+      <el-form
+        ref="form"
+        :model="sizeForm"
+        label-width="80px"
+        size="small"
+        :rules="rules2"
+        class="addform"
+      >
+      分配新角色
+      <el-form-item lable="当前用户" prop="new">
+        
+        <span>{{nowname}}</span> 
+        
+      </el-form-item>
+      <el-form-item lable="当前角色" prop="new">
+        
+        <span>{{nowjob}}</span> 
+        
+      </el-form-item>
+        <el-form-item label="分配新角色" prop="new">
+          <el-select v-model="newjob">
+            <el-option label="超级管理员" value="超级管理员"></el-option>
+            <el-option label="测试角色" value="测试角色"></el-option>
+            <el-option label="测试角色2" value="测试角色2"></el-option>
+            <el-option label="白领" value="白领"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item size="large">
+          <el-button type="primary" @click="sub()">确定</el-button>
+          <el-button @click="cancel()">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -153,6 +187,10 @@ const phoneyz = (rule, value, cb) => {
 export default {
   data() {
     return {
+      isNew:false,
+      nowname:'',
+      nowjob:'',
+      newjob:'',
       userid: null,
       show: false,
       isShow: false,
@@ -195,9 +233,10 @@ export default {
   },
   methods: {
     //添加用户
-    onSubmit() {
-      console.log(this.sizeForm.name);
-      this.axios
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.axios
         .post("/api/users", {
           username: this.sizeForm.name,
           password: this.sizeForm.password,
@@ -226,6 +265,12 @@ export default {
             });
           }
         });
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      
     },
     //修改用户信息
     Edit(id) {
@@ -318,17 +363,37 @@ export default {
     },
     quanxian(id) {
       console.log(id)
+      this.userid=id
+      this.isNew=true
+    },
+    sub(){
+      console.log(this.newjob)
       request({
-        url:`users/${id}/role`,
+        url:`users/${this.userid}/role`,
         method:"put",
         data:{
-          rid:"医生"
-        }
+          rid:this.newjob
+        },
       }).then(res=>{
         console.log(res)
-        // this.tableData.push(res.data)
+        this.isNew=false
+        if(res.meta.status==200){
+          this.$message({
+              message: res.meta.msg,
+              type: "success",
+              onClose: () => {
+                this.fn()
+              },
+            });
+          }else{
+            this.$message.error("修改失败");
+          }
       })
     },
+    cancel(){
+      this.isNew=false
+    }
+    ,
     //分液器
     //改变每页条数
     handleSizeChange(e) {
@@ -395,21 +460,21 @@ export default {
   },
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .users_top {
   padding: 10px;
 }
+
 
 .users_bottom {
   margin: 10px;
   background: white;
   .search {
-    width: 200px;
-    height: 40px;
+    width: 400px;
+    height: 50px;
     padding: 20px 10px;
-    .el-input__inner {
-      height: 42px;
-    }
+    box-sizing: border-box;
+    
   }
   .el-input--mini {
     height: 60px;
@@ -440,6 +505,30 @@ export default {
 }
 
 .xiugai {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.3);
+  .addform {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    border-radius: 30px;
+    padding: 50px;
+    background: #fff;
+    .el-input__inner {
+      height: 50px;
+    }
+  }
+}
+
+.newjob {
   position: absolute;
   top: 50%;
   left: 50%;

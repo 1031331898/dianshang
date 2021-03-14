@@ -12,7 +12,7 @@ import _ from "lodash"
 export default {
   data(){
     return{
-     options: {
+      options: {
         title: {
           text: '用户来源'
         },
