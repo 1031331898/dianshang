@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send">
           <template>
-            <template> </template>
+            <template></template>
           </template>
         </el-table-column>
         <el-table-column label="下单时间" prop="create_time">
