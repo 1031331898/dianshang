@@ -132,23 +132,18 @@
         :rules="rules2"
         class="addform"
       >
-      分配新角色
       <el-form-item lable="当前用户" prop="new">
-        
-        <span>{{nowname}}</span> 
-        
+        <span>当前用户</span> 
       </el-form-item>
       <el-form-item lable="当前角色" prop="new">
-        
-        <span>{{nowjob}}</span> 
-        
+        <span>当前角色</span>   
       </el-form-item>
         <el-form-item label="分配新角色" prop="new">
           <el-select v-model="newjob">
-            <el-option label="超级管理员" value="超级管理员"></el-option>
-            <el-option label="测试角色" value="测试角色"></el-option>
-            <el-option label="测试角色2" value="测试角色2"></el-option>
-            <el-option label="白领" value="白领"></el-option>
+            <el-option label="超级管理员" value="1000" ></el-option>
+            <el-option label="测试角色" value="2000" ></el-option>
+            <el-option label="测试角色2" value="3000"></el-option>
+            <el-option label="白领" value="4000"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item size="large">
@@ -361,8 +356,10 @@ export default {
           }
       })
     },
+    //权限分配
     quanxian(id) {
       console.log(id)
+      console.log(this.tableData)
       this.userid=id
       this.isNew=true
     },
