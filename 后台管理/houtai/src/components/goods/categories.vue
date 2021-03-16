@@ -48,11 +48,19 @@
           <el-tag type="warning" size="mini" v-else>三级</el-tag>
         </template>
         <!-- 操作 -->
-        <template slot="opt">
-          <el-button type="primary" icon="el-icon-edit" size="mini"
+        <template slot="opt" slot-scope="scope">
+          <el-button
+            type="primary"
+            icon="el-icon-edit"
+            size="mini"
+            @click="Edit(scope.row)"
             >编辑</el-button
           >
-          <el-button type="danger" icon="el-icon-delete" size="mini"
+          <el-button
+            type="danger"
+            icon="el-icon-delete"
+            size="mini"
+            @click="Delete(scope.row)"
             >删除</el-button
           >
         </template>
@@ -108,14 +116,36 @@
         <el-button type="primary" @click="addCate">确 定</el-button>
       </span>
     </el-dialog>
+
+    <!-- 修改分类框 -->
+    <el-dialog title="修改分类" :visible.sync="dialogFormVisible">
+      <el-form :model="d_form">
+        <el-form-item label="修改分类">
+          <el-input
+            v-model="d_form.name"
+            autocomplete="off"
+            required
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="SureEdit()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import request from "../../request/index.js"
+import request from "../../request/index.js";
 export default {
   data() {
     return {
+      d_form: {
+        name: "",
+        id: "",
+      },
+      dialogFormVisible: false,
       //查询条件
       querInfo: {
         type: 3,
@@ -188,6 +218,72 @@ export default {
     this.getCateList();
   },
   methods: {
+    Edit(e) {
+      console.log(e);
+      this.dialogFormVisible = true;
+      this.d_form.id = e.cat_id;
+    },
+    SureEdit() {
+      request({
+        url: `categories/${this.d_form.id}`,
+        method: "put",
+        data: {
+          cat_name: this.d_form.name,
+        },
+      }).then((res) => {
+        console.log(res);
+        if (res.meta.status == 200) {
+          this.$message({
+            message: res.meta.msg,
+            type: "success",
+            duration: 1000,
+            onClose: () => {
+              this.getCateList();
+              this.dialogFormVisible = false;
+            },
+          });
+        } else {
+          this.$message.error(res.meta.msg);
+        }
+      });
+    },
+    Delete(e) {
+      console.log(e);
+      console.log(e.cat_id);
+      this.$confirm("此操作将永久删除该分类, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          request({
+            url: `categories/${e.cat_id}`,
+            method: "delete",
+          }).then((res) => {
+            console.log(res);
+            if (res.meta.status == 200) {
+              this.$message({
+                message: res.meta.msg,
+                type: "success",
+                duration: 1000,
+                onClose: () => {
+                  // this.getCateList();
+                  this.parentCateChanged()
+                },
+              });
+            } else {
+              this.$message.error(res.meta.msg);
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
+
     //获取商品分类数据
     getCateList() {
       this.axios
@@ -259,19 +355,18 @@ export default {
       this.$refs.addCateFormRef.validate((valid) => {
         if (!valid) return;
         request({
-          url:"categories",
-          method:"post",
-          data:this.addCateForm
-        })
-          .then((res) => {
-            if (res.meta.status !== 201) {
-              this.$message.error("添加分类失败！");
-            } else {
-              this.$message.success("添加分类成功！");
-              this.getCateList();
-              this.addCateDialogVisible = false;
-            }
-          });
+          url: "categories",
+          method: "post",
+          data: this.addCateForm,
+        }).then((res) => {
+          if (res.meta.status !== 201) {
+            this.$message.error("添加分类失败！");
+          } else {
+            this.$message.success("添加分类成功！");
+            this.getCateList();
+            this.addCateDialogVisible = false;
+          }
+        });
       });
     },
     // 监听对话框的关闭事件，重置表单数据

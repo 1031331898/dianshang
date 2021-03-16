@@ -26,7 +26,7 @@
         >
           <el-submenu :index="item.id+'-1'+''" v-for="item in list" :key="item.id">
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i :class="ictu[item.id]"></i>
               <span>{{item.authName}}</span>
             </template>
             <el-menu-item-group>
@@ -49,13 +49,13 @@ export default {
   data(){
     return{
       list:null,
-      icon_list:[
-        "el-icon-user",
-        "el-icon-location",
-        "el-icon-document",
-        "el-icon-goods",
-        "el-icon-data-line"
-      ]
+      ictu: {
+        125: "el-icon-user-solid",
+        103: "el-icon-s-platform",
+        101: "el-icon-s-cooperation",
+        102: "el-icon-s-order",
+        145: "el-icon-phone"
+      },
     }
   },
   methods: {
@@ -129,5 +129,8 @@ body {
     flex: 1;
     background: #EAEDF1;
   }
+}
+.el-menu-item .is-active .router-link-exact-active .router-link-active{
+  color: #f00;
 }
 </style>

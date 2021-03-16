@@ -126,29 +126,21 @@
   <div class="newjob" v-if="isNew">
       <el-form
         ref="form"
-        :model="sizeForm"
+        :model="newjob"
         label-width="80px"
         size="small"
         :rules="rules2"
         class="addform"
       >
-      分配新角色
       <el-form-item lable="当前用户" prop="new">
-        
-        <span>{{nowname}}</span> 
-        
+        <span>当前用户</span> 
       </el-form-item>
       <el-form-item lable="当前角色" prop="new">
-        
-        <span>{{nowjob}}</span> 
-        
+        <span>当前角色</span>   
       </el-form-item>
         <el-form-item label="分配新角色" prop="new">
-          <el-select v-model="newjob">
-            <el-option label="超级管理员" value="超级管理员"></el-option>
-            <el-option label="测试角色" value="测试角色"></el-option>
-            <el-option label="测试角色2" value="测试角色2"></el-option>
-            <el-option label="白领" value="白领"></el-option>
+          <el-select v-model="newjob.roleid">
+            <el-option v-for="item in rolelist" :key="item.id" :label="item.roleName" :value="item.id" ></el-option>
           </el-select>
         </el-form-item>
         <el-form-item size="large">
@@ -190,7 +182,12 @@ export default {
       isNew:false,
       nowname:'',
       nowjob:'',
-      newjob:'',
+      newjob:{
+        name:"",
+        roleid:""
+      },
+      rolelist:[]
+      ,
       userid: null,
       show: false,
       isShow: false,
@@ -361,18 +358,29 @@ export default {
           }
       })
     },
+    //权限分配
     quanxian(id) {
+      request({
+        url:"roles",
+      }).then(res=>{
+        console.log(res)
+        this.rolelist=res.data
+        this.newjob.id=this.rolelist.id
+        })
       console.log(id)
+      console.log(this.tableData)
       this.userid=id
+      
       this.isNew=true
     },
     sub(){
-      console.log(this.newjob)
+      console.log(this.newjob.roleid)
+      console.log(this.rolelist)
       request({
         url:`users/${this.userid}/role`,
         method:"put",
         data:{
-          rid:this.newjob
+          rid:this.newjob.roleid-0
         },
       }).then(res=>{
         console.log(res)
@@ -381,6 +389,7 @@ export default {
           this.$message({
               message: res.meta.msg,
               type: "success",
+              duration:1000,
               onClose: () => {
                 this.fn()
               },
