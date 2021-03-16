@@ -11,6 +11,9 @@ const routes = [
         name: 'Home',
         component: Home,
         children: [{
+                path: '/',
+                redirect: 'sy'
+            }, {
                 path: 'users',
                 component: () =>
                     import ('./../components/users/users.vue')
@@ -56,7 +59,11 @@ const routes = [
                 component: () =>
                     import ('./../components/goods/params.vue')
             },
-
+            {
+                path: 'sy',
+                component: () =>
+                    import ('./../components/sy/sy.vue')
+            },
         ]
     },
     {

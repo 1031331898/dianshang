@@ -1,7 +1,7 @@
 <template>
     <div>
   <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/sy' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/home/sy' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>数据统计</el-breadcrumb-item>
         <el-breadcrumb-item>数据报表</el-breadcrumb-item>
       </el-breadcrumb>
@@ -26,7 +26,7 @@ export default {
           axisPointer: {
             type: 'cross',
             label: {
-              backgroundColor: '#E9EEF3'
+              backgroundColor: '#dedew'
             }
           }
         },
@@ -60,7 +60,6 @@ export default {
           const reslut = _.merge(res.data,this.options)
           myChart.setOption(reslut)
         })
-     
 
          // 指定图表的配置项和数据
         var option = {
