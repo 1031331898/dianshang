@@ -9,8 +9,8 @@
     <el-card>
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input placeholder="请输入内容" v-model="search">
+            <el-button slot="append" icon="el-icon-search" @click="search_"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -43,7 +43,7 @@
               type="primary"
               icon="el-icon-edit"
               size="mini"
-              @click="showBox(scope.row.goods_name)"
+              @click="showBox(scope.row)"
             ></el-button>
             <el-button
               type="danger"
@@ -71,20 +71,42 @@
       <el-dialog
         title="添加分类"
         :visible.sync="dialogVisible"
-        width="50%"
+        width="60%"
       >
       <el-form
-       :model="fenlei"
-          :rules="fenleiFormRules"
+      :model="fenlei"
           ref="fenleiFormRef"
-          label-width="100px"
+          label-width="150px"
       >
-        <el-form-item label="分类名称" prop="fname">
-            <el-input v-model="fenlei.fname"></el-input>
-          </el-form-item>
+        <!-- <div>原商品信息：{{fenlei.defalut_name}}</div> -->
+        <el-form-item label="修改商品信息" required>
+            <el-input v-model="fenlei.goods_name" :placeholder="fenlei.defalut_name"></el-input>
+        </el-form-item>
+        <!-- <div>原商品信息：{{fenlei.defalut_price}}</div> -->
+        <el-form-item label="修改商品价格" required>
+          <el-input v-model="fenlei.goods_price" :placeholder="fenlei.defalut_price"></el-input>
+        </el-form-item>
+        <!-- <div>原商品信息：{{fenlei.defalut_number}}</div> -->
+        <el-form-item label="修改商品数量" required>
+            <el-input v-model="fenlei.goods_number" :placeholder="fenlei.defalut_number"></el-input>
+        </el-form-item>
+        <!-- <div>原商品信息：{{fenlei.defalut_weight}}</div> -->
+        <el-form-item label="修改商品重量"  required>
+            <el-input v-model="fenlei.goods_weight" :placeholder="fenlei.defalut_weight"></el-input>
+        </el-form-item>
+        <el-form-item label="选择商品分类 "  required>
+            <el-cascader
+            expand-trigger="hover"
+            :options="catelist"
+            :props="cateProps"
+            v-model="selectedCateKeys"
+            @change="handleChange()"
+          >
+          </el-cascader>
+        </el-form-item>
         </el-form>
           <el-button @click="dialogVisible = false">取 消</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
+          <el-button type="primary" @click="editSub"
             >确 定</el-button
           >
       </el-dialog>
@@ -93,11 +115,13 @@
 </template>
 
 <script>
+import request from "../../request/index.js"
 //调用过滤器
 import { fmtDate } from "@/components/filter/Data.js";
 export default {
   data() {
     return {
+      search:null,
       // 查询参数对象
       queryInfo: {
         query: "",
@@ -110,23 +134,34 @@ export default {
       total: 0,
       dialogVisible:false,
       fenlei:{
-        fname:"",
-        father:[
-        
-        ],
-
+        goods_name:"",
+        goods_price:"",
+        goods_number:"",
+        goods_weight:"",
+        defalut_name:"",
+        defalut_price:"",
+        defalut_number:"",
+        defalut_weight:"",
+        goods_id:null
       },
-      fenleiFormRules:{
-        fname:[
-  {required: true, message: "请输入商品名称", trigger: "blur"},
-        ],
-        father:[],
-      }
+       // 商品分类列表
+      catelist: [],
+      // 级联选择框的配置对象
+      cateProps: {
+        value: "cat_id",
+        label: "cat_name",
+        children: "children",
+      },
+      // 级联选择框双向绑定到的数组
+      selectedCateKeys: [],
+      //分类id
+      flid:""
     };
   },
 
   created() {
     this.getGoodsList();
+    this.getCateList();
   },
   // 自定义属性
   filters: {
@@ -136,6 +171,43 @@ export default {
     },
   },
   methods: {
+    getCateList() {
+      request({
+        url: "/categories",
+      }).then((res) => {
+        console.log(res);
+        this.catelist = res.data;
+        console.log(this.selectedCateKeys);
+      });
+    },
+    //选择级联后自动触发handleChange
+    handleChange(){
+      this.flid=this.selectedCateKeys
+      console.log(this.flid);
+    },
+    //查询商品
+    search_(){
+      console.log(this.search)
+      request({
+        url:`goods/${this.search}`
+      }).then(res=>{
+        console.log(res)
+        if(res.meta.status==200){
+          this.$message({
+          message: res.meta.msg,
+          type: 'success',
+          duration:1000,
+          onClose:()=>{
+            this.goodslist.splice(0, this.goodslist.length, res.data)
+          }
+        });
+        }else if(res.meta.status==400){
+          this.$message.error(res.meta.msg)
+        }else{
+          this.$message.error("查无此人")
+        }
+      })
+    },
     // 根据分页获取对应的商品列表
     getGoodsList() {
       this.axios.get("/api/goods", { params: this.queryInfo }).then((res) => {
@@ -155,7 +227,6 @@ export default {
       this.queryInfo.pagenum = newPage;
       this.getGoodsList();
     },
-   
     removeById(id) {
       this.$confirm("此操作将永久删除该商品, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -189,8 +260,44 @@ export default {
     goAddpage() {
       this.$router.push("/home/add");
     },
-    showBox(){
+    //修改商品信息
+    showBox(e){
       this.dialogVisible=true
+      console.log(e)
+        this.fenlei.defalut_name=e.goods_name
+        this.fenlei.defalut_price=e.goods_price
+        this.fenlei.defalut_number=e.goods_number
+        this.fenlei.defalut_weight=e.goods_weight
+        this.fenlei.goods_id=e.goods_id
+    },
+    editSub(){
+      console.log(this.fenlei.goods_name)
+      request({
+        url:`goods/${this.fenlei.goods_id}`,
+        method:"put",
+        data:{
+          goods_name:this.fenlei.goods_name,
+          goods_price:this.fenlei.goods_price,
+          goods_number:this.fenlei.goods_number,
+          goods_weight:this.fenlei.goods_weight,
+          goods_cat:this.flid.join("")
+        }
+      }).then(res=>{
+        console.log(res)
+        if(res.meta.status==200){
+          this.$message({
+                message: res.meta.msg,
+                type: "success",
+                duration: 1000,
+                onClose: () => {
+                  this.getGoodsList();
+                  this.dialogVisible=false
+                },
+              });
+        }else{
+          this.$message.error("修改失败")
+        }
+      })
     }
   },
 };

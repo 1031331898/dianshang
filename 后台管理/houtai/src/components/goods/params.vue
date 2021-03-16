@@ -264,7 +264,7 @@ export default {
     //动态参数
     many() {
       request({
-        url: `categories/${this.selectedCateKeys[2]}/attributes`,
+        url: `categories/${this.selectedCateKeys[this.selectedCateKeys.length - 1]}/attributes`,
         method: "get",
         params: {
           sel: "many",

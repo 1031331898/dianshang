@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send">
           <template>
-            <template> </template>
+            <template></template>
           </template>
         </el-table-column>
         <el-table-column label="下单时间" prop="create_time">
@@ -173,6 +173,7 @@ export default {
     //展示修改地址对话框
     showBox() {
       this.addressVisible = true;
+      
     },
     //关闭对话框清空里面信息
     addressDialogClosed() {
@@ -183,7 +184,7 @@ export default {
       this.axios.get("/api/kuaidi/1106975712662",{
         params:this.progressInfo
       }).then((res)=>{
-         if (res.meta.status !== 200) {
+        if (res.meta.status !== 200) {
             return this.$message.error("获取物流进度失败");
           }
       })
