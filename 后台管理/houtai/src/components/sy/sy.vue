@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div id="echars" style="width: 750px; height: 400px"></div>
+  <div id="sy">
+    <el-card id="echars"></el-card>
     <div class="ad">
-      <div id="echars2" style="width: 750px; height: 400px"></div>
-      <div id="echars3" style="width: 750px; height: 400px"></div>
+      <el-card id="echars2"></el-card>
+      <el-card id="echars3"></el-card>
     </div>
   </div>
 </template>
@@ -29,8 +29,7 @@ export default {
           right: 10,
           top: 20,
           bottom: 20,
-          data:[],
-
+          data: [],
         },
         toolbox: {
           show: true,
@@ -62,208 +61,123 @@ export default {
           },
         ],
       },
-      options2: {
-        title: {
-          text: "角色列表",
-        },
-        xAxis: {
-          type: "category",
-          data: [],
-          
-        },
-        yAxis: {
-          type: "value",
-        },
-        series: [
-          {
-            data: [],
-            type: "bar",
-            showBackground: true,
-            backgroundStyle: {
-              color: "rgba(180, 180, 180, 0.2)",
-            },
-          },
-        ],
-        
+
+      // 2
+    options2 : {
+      title:{
+        text:'角色列表',
       },
-      
-      options3: {
-        title: {
-          text: "所有权限列表",
-        },
-        angleAxis: {
-          type: "category",
-          data: [],
-        },
-        radiusAxis: {},
-        polar: {},
-        series: [
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    legend: {
+        data:[]
+    },
+    series: [
           {
-            type: "bar",
-            data: [45, 2, 3, 4, 3, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
+            name: '访问来源',
+            type: 'pie',
+            selectedMode: 'single',
+            radius: [0, '30%'],
+            label: {
+                position: 'inner',
+                fontSize: 14,
             },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 3, 4, 3, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
+            labelLine: {
+                show: false
             },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 3, 4, 3, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 3, 4, 3, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 3, 4, 3, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 54, 4, 54, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [45, 2, 54, 4, 5, 5, 45],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 6, 4, 5, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 5, 4, 8, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
             data: [
-              1,
-              2,
-              8,
-              4,
-              54,
-              5,
-              1,
-              1,
-              2,
-              8,
-              4,
-              54,
-              5,
-              11,
-              2,
-              8,
-              4,
-              54,
-              5,
-              1,
-            ],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 54, 4, 3, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 3, 4, 3, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 3, 4, 3, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-          {
-            type: "bar",
-            data: [1, 2, 3, 4, 3, 5, 1],
-            coordinateSystem: "polar",
-            name: "A",
-            stack: "a",
-            emphasis: {
-              focus: "series",
-            },
-          },
-        ],
-        legend: {
-          show: true,
-          data: [],
+                {value: 1548, name: '权限'},
+                {value: 775, name: '分类'},
+                {value: 679, name: '饼图', selected: true}
+            ]
         },
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius: ['45%', '60%'],
+            labelLine: {
+                length: 30,
+            },
+            label: {
+                formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}    ',
+                backgroundColor: '#F6F8FC',
+                borderColor: '#8C8D8E',
+                borderWidth: 1,
+                borderRadius: 4,
+                rich: {
+                    a: {
+                        color: '#6E7079',
+                        lineHeight: 22,
+                        align: 'center'
+                    },
+                    hr: {
+                        borderColor: '#8C8D8E',
+                        width: '100%',
+                        borderWidth: 1,
+                        height: 0
+                    },
+                    b: {
+                        color: '#4C5058',
+                        fontSize: 14,
+                        fontWeight: 'bold',
+                        lineHeight: 33
+                    },
+                    per: {
+                        color: '#fff',
+                        backgroundColor: '#4C5058',
+                        padding: [3, 4],
+                        borderRadius: 4
+                    }
+                }
+            },
+            data: []
+        }
+    ]
+},
+
+      options3: {
+        
+      title: {
+          text: "权限列表",
+        },
+    legend: {
+        type: "scroll",
+          orient: "vertical",
+          right: 10,
+          top: 20,
+          bottom: 20,
+        
+        
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    series: [
+        {
+            label:{
+          shou:false
+        },
+            name: '面积模式',
+            type: 'pie',
+            radius: [20, 140],
+            center: ['50%', '50%'],
+            roseType: 'area',
+            itemStyle: {
+                borderRadius: 8
+            },
+            data: [
+                
+            ]
+        }
+    ]
       },
     };
   },
@@ -273,7 +187,8 @@ export default {
     var myChart = echarts.init(document.getElementById("echars"));
     var myChart2 = echarts.init(document.getElementById("echars2"));
     var myChart3 = echarts.init(document.getElementById("echars3"));
-
+    console.log(typeof(this.options2.series[1].data))
+    console.log(typeof(this.options2.legend.data))
     aaa({
       url: "/categories",
     }).then((res) => {
@@ -291,8 +206,8 @@ export default {
       url: "/roles",
     }).then((rew) => {
       rew.data.forEach((element) => {
-        this.options2.xAxis.data.push(element.roleName);
-        this.options2.series[0].data.push(element.id);
+        console.log(element.roleName)
+        this.options2.series[1].data.push({name:element.roleName,value:element.id})
       });
       this.options2 && myChart2.setOption(this.options2);
     });
@@ -301,13 +216,22 @@ export default {
       url: "rights/list ",
     }).then((res) => {
       console.log(res);
+      console.log(this.options3.series[0])
       res.data.forEach((element) => {
-        console.log(element);
-        this.options3.angleAxis.data.push(element.authName);
-        this.options3.legend.data.push(element.path);
+        // console.log(element);
+      
+        this.options3.series[0].data.push(
+          {name:element.authName,value:element.id}
+          );
+        // this.options3.legend.data.push(element.path);
       });
       this.options3 && myChart3.setOption(this.options3);
     });
+    window.addEventListener("resize", function () {
+      myChart.resize();
+      myChart2.resize();
+      myChart3.resize();
+      });
   },
   methods: {},
   components: {},
@@ -315,12 +239,37 @@ export default {
 </script>
 
 <style scoped lang="less">
-#echars{
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
+#sy {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  // padding: 20px;
+  box-sizing: border-box;
+}
+#echars {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  // padding: 20px;
 }
 .ad {
+  width: 100%;
+  height: 100%;
   display: flex;
+  // padding: 20px;
+
+  #echars2 {
+    width: 50%;
+    box-sizing: border-box;
+    height: 100%;
+    // padding: 20px;
+  }
+  #echars3 {
+    width: 50%;
+    box-sizing: border-box;
+    height: 100%;
+    // padding: 20px;
+  }
 }
 </style>

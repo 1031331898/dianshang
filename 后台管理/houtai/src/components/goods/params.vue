@@ -530,6 +530,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.el-breadcrumb{
+  padding: 10px;
+}
 .daohao {
   width: 100%;
   height: 50px;

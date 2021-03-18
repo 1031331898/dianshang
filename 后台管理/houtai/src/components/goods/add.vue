@@ -336,7 +336,9 @@ export default {
 .previewImg {
   width: 100%;
 }
-
+.el-breadcrumb{
+  padding: 10px;
+}
 .btnAdd {
   margin-top: 15px;
 }

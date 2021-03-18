@@ -61,7 +61,7 @@ export default {
   methods: {
     logout(){
       window.sessionStorage.clear();
-      // this.$router.push('/login')
+       this.$router.push('/login')
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -107,6 +107,7 @@ body {
     color: #ccc;
   }
   .box2 {
+  
     width: 100px;
     display: flex;
     align-items: center;
@@ -123,11 +124,12 @@ body {
   .home_left {
     height: 127%;
     background: #333744;
-    width: 200px;
+    width: 17%;
   }
   .home_right {
     flex: 1;
     background: #EAEDF1;
+    width: 83%;
   }
 }
 .el-menu-item .is-active .router-link-exact-active .router-link-active{

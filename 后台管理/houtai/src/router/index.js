@@ -11,16 +11,10 @@ const routes = [
         name: 'Home',
         component: Home,
         children: [{
-<<<<<<< HEAD
-                path: '/',
-                redirect: 'sy'
-            }, {
-=======
                 path: "/",
                 redirect: "sy"
             },
             {
->>>>>>> 47cac5a12603e41ce3fee710041b1413f8b3067c
                 path: 'users',
                 component: () =>
                     import ('./../components/users/users.vue')
@@ -67,16 +61,9 @@ const routes = [
             },
             {
                 path: 'sy',
-<<<<<<< HEAD
                 component: () =>
                     import ('./../components/sy/sy.vue')
             },
-=======
-                name: 'sy',
-                component: () =>
-                    import ("../components/sy/sy.vue")
-            }
->>>>>>> 47cac5a12603e41ce3fee710041b1413f8b3067c
         ]
     },
     {
