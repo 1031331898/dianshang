@@ -25,14 +25,14 @@
         <el-table-column
           label="商品价格(元)"
           prop="goods_price"
-          width="95px"
+          width="120px"
         ></el-table-column>
         <el-table-column
           label="商品重量"
           prop="goods_weight"
-          width="70px"
+          width="100px"
         ></el-table-column>
-        <el-table-column label="创建时间" prop="add_time" width="140px">
+        <el-table-column label="创建时间" prop="add_time" width="160px">
           <template slot-scope="scope">
             {{ scope.row.add_time | filtedate }}
           </template>
@@ -60,7 +60,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
-        :page-sizes="[5, 10, 15, 20]"
+        :page-sizes="[1,2,3,4,5]"
         :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -126,7 +126,7 @@ export default {
       queryInfo: {
         query: "",
         pagenum: 1,
-        pagesize: 10,
+        pagesize: 5,
       },
       // 商品列表
       goodslist: [],

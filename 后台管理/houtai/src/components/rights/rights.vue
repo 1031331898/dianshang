@@ -9,6 +9,9 @@
   </div>
   <el-table
     :data="tableData"
+    style="width:95%"
+    height="800px"
+    class="table"
     >
     <el-table-column
       label="#"
@@ -73,3 +76,11 @@ import request from "./../../request/index.js"
     }
   }
 </script>
+<style lang="less" scoped>
+.users_top {
+  padding: 10px;
+}
+.table{
+  margin: 20px 0 0 20px;
+}
+</style>

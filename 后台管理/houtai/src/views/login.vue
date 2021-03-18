@@ -39,7 +39,7 @@ export default {
         formLabelAlign: {
           name: 'admin',
           pwd: '123456',
-         
+        
         },
         rules:{
           name:[ { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -70,7 +70,7 @@ export default {
             })
           })
         }else{
-         console.log("error submit!!");
+        console.log("error submit!!");
           this.$message.error('用户或密码错误!');
           return false;
         }

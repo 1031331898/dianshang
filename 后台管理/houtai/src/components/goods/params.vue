@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
+    <div class="user_top">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home/sy' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>商品管理</el-breadcrumb-item>
       <el-breadcrumb-item>参数列表</el-breadcrumb-item>
     </el-breadcrumb>
+    </div>
+    
     <!-- 卡片视图区域 -->
     <el-card>
       <!-- 警告区域 -->
@@ -43,13 +46,13 @@
             <el-row class="centerRow">
               <!-- 这一列，专门渲染 一级权限 -->
               <el-col :span="5">
-                <el-tag closable @click="remove(scope.row.cat_id)">{{
+                <el-tag closable >{{
                   scope.row.attr_vals
                 }}</el-tag>
                 <i class="el-icon-caret-right"></i>
               </el-col>
               <el-col :span="5">
-                <el-tag closable @click="remove(scope.row.cat_id)">{{
+                <el-tag closable >{{
                   scope.row.attr_write
                 }}</el-tag>
                 <i class="el-icon-caret-right"></i>
@@ -87,13 +90,13 @@
             <el-row>
               <!-- 这一列，专门渲染 一级权限 -->
               <el-col :span="5">
-                <el-tag closable @click="remove3(prop.row.cat_id)">
+                <el-tag closable >
                   {{ prop.row.attr_vals }}
                 </el-tag>
                 <i class="el-icon-caret-right"></i>
               </el-col>
               <el-col :span="5">
-                <el-tag closable @click="remove4(prop.row.cat_id)">
+                <el-tag closable >
                   {{ prop.row.attr_write }}
                 </el-tag>
                 <i class="el-icon-caret-right"></i>
@@ -335,7 +338,7 @@ export default {
         if(res.meta.status==200){
           this.$message({
                 type: "success",
-                message: "删除成功!",
+                message:res.meta.msg,
                 duration: 1000,
                 onClose: () => {
                   this.getCateList();
@@ -413,7 +416,7 @@ export default {
         if(res.meta.status==200){
           this.$message({
                 type: "success",
-                message: "删除成功!",
+                message: res.meta.msg,
                 duration: 1000,
                 onClose: () => {
                   this.getCateList();
@@ -530,6 +533,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.user_top {
+  padding: 10px;
+}
 .daohao {
   width: 100%;
   height: 50px;

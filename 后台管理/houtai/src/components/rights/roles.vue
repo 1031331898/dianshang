@@ -170,6 +170,7 @@
     default-expand-all
     class="tree_c"
     :props="treeprops"
+    :default-checked-keys="defKeys"
     ></el-tree>
       <span 
       slot="footer" 
@@ -192,6 +193,7 @@ import request from "./../../request/index.js";
 export default {
   data() {
     return {
+
       defaultCheckedKeys:"",
       treeConfig:"",
       tableData: [],
@@ -211,10 +213,12 @@ export default {
         label:'authName',
         children:'children'
       },
+      defKeys:[],
       bjid: "",
       bjlist: {
         bjname: "",
       },
+
     };
   },
   methods: {
@@ -420,20 +424,38 @@ export default {
         console.log(res);
         this.tree=res.data
         this.digui(row,this.diguitree)
+        this.defKeys = arrtemp;
       });
+      // 获取所有三级节点的Id
+      let arrtemp = [];
+
+      row.children.forEach((item1) => {
+        arrtemp.push(item1.id);
+
+        item1.children.forEach((item2) => {
+          arrtemp.push(item2.id);
+
+          item2.children.forEach((item3) => {
+            arrtemp.push(item3.id);
+          });
+        });
+      });
+
     },
     cancel2(){
-      this.tree=false
-      return
+      this.isTree=false
     },
     sure(){
+      //若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点的 key 所组成的数组
       console.log(this.$refs.tree.getCheckedKeys(),
+      //若节点可被选择（即 show-checkbox 为 true），则返回目前半选中的节点的 key 所组成的数组
       this.$refs.tree.getHalfCheckedKeys())
+      console.log(this.bjid)
       request({
         url:`roles/${this.bjid}/rights`,
         method:"post",
         data:{
-          rids:[this.$refs.tree.getCheckedKeys(),this.$refs.tree.getHalfCheckedKeys()].join('')
+          rids:[this.$refs.tree.getCheckedKeys(),this.$refs.tree.getHalfCheckedKeys()].join(',')
         }
       }).then(res=>{
         console.log(res)
@@ -488,6 +510,10 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.users_top {
+  padding: 10px;
+}
+
 .tianjia {
   width: 100px;
   height: 30px;

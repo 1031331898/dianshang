@@ -127,18 +127,11 @@
       <el-form
         ref="form"
         :model="newjob"
-        label-width="80px"
+        label-width="150px"
         size="small"
-        :rules="rules2"
         class="addform"
       >
-      <el-form-item lable="当前用户" prop="new">
-        <span>当前用户</span> 
-      </el-form-item>
-      <el-form-item lable="当前角色" prop="new">
-        <span>当前角色</span>   
-      </el-form-item>
-        <el-form-item label="分配新角色" prop="new">
+        <el-form-item label="分配新角色">
           <el-select v-model="newjob.roleid">
             <el-option v-for="item in rolelist" :key="item.id" :label="item.roleName" :value="item.id" ></el-option>
           </el-select>
@@ -149,7 +142,7 @@
         </el-form-item>
       </el-form>
     </div>
-
+<!-- 分页器 -->
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -365,7 +358,7 @@ export default {
       }).then(res=>{
         console.log(res)
         this.rolelist=res.data
-        this.newjob.id=this.rolelist.id
+        this.newjob.roleid=this.rolelist.id
         })
       console.log(id)
       console.log(this.tableData)
