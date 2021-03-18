@@ -533,7 +533,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.user_top {
+.el-breadcrumb{
   padding: 10px;
 }
 .daohao {

@@ -510,10 +510,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.users_top {
+.users_top{
   padding: 10px;
 }
-
 .tianjia {
   width: 100px;
   height: 30px;

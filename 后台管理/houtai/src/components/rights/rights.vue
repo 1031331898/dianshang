@@ -76,11 +76,8 @@ import request from "./../../request/index.js"
     }
   }
 </script>
-<style lang="less" scoped>
-.users_top {
+<style>
+.users_top{
   padding: 10px;
-}
-.table{
-  margin: 20px 0 0 20px;
 }
 </style>
